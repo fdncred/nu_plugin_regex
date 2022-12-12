@@ -29,9 +29,14 @@ pub fn regex_from_string(
                 let mut cols = Vec::new();
                 let mut vals = Vec::new();
 
+                cols.push("input".to_string());
                 cols.push("match".to_string());
                 cols.push("begin".to_string());
                 cols.push("end".to_string());
+                vals.push(Value::String {
+                    val: val.to_string(),
+                    span: value_span,
+                });
                 vals.push(Value::String {
                     val: mat.as_str().to_string(),
                     span: value_span,

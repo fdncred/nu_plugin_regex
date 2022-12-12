@@ -1,7 +1,7 @@
 mod regex_;
 
 use nu_plugin::{serve_plugin, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin};
-use nu_protocol::{Category, Example, Signature, Spanned, SyntaxShape, Value};
+use nu_protocol::{Category, Signature, Spanned, SyntaxShape, Value};
 
 struct Regex_;
 
