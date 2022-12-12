@@ -33,7 +33,7 @@ This is a nushell plugin to parse regular expressions.
 ```bash
 'abc123abc' | regex '\w+'
 ```
-```
+```console
 ╭───┬───────────┬───────┬─────╮
 │ # │   match   │ begin │ end │
 ├───┼───────────┼───────┼─────┤
