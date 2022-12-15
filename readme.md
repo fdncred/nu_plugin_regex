@@ -110,6 +110,20 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 │ 2 │ abc123abc │ num          │ 123     │     3 │   6 │
 ╰───┴───────────┴──────────────┴─────────┴───────┴─────╯
 ```
+## Example 8 - match non-digits, digits, non-digits with unnamed capture groups
+```bash
+'abc123abc' | regex '(\D+)(\d+)(\D+)'
+```
+```console
+╭───┬───────────┬──────────────┬───────────┬───────┬─────╮
+│ # │   input   │ capture_name │   match   │ begin │ end │
+├───┼───────────┼──────────────┼───────────┼───────┼─────┤
+│ 0 │ abc123abc │ capgrp0      │ abc123abc │     0 │   9 │
+│ 1 │ abc123abc │ capgrp1      │ abc       │     0 │   3 │
+│ 2 │ abc123abc │ capgrp2      │ 123       │     3 │   6 │
+│ 3 │ abc123abc │ capgrp3      │ abc       │     6 │   9 │
+╰───┴───────────┴──────────────┴───────────┴───────┴─────╯
+```
 # Notes
 
 - capture group 0 is always reported when groups are detected. not sure if this is right. this was mainly done for example 7
