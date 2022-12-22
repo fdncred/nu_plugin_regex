@@ -21,7 +21,7 @@ pub fn regex_from_string(
 ) -> Result<Value, LabeledError> {
     let re = validate_regex(pattern, pattern_span)?;
 
-    let has_capture_groups = capture_groups(&re, false).len() > 0;
+    let has_capture_groups = !capture_groups(&re, false).is_empty();
 
     if has_capture_groups {
         let value_result1 = capture_with_groups(&re, val, pattern_span, value_span)?;
@@ -120,7 +120,7 @@ fn capture_with_groups(
     value_span: Span,
 ) -> Result<Value, LabeledError> {
     let mut recs: Vec<Value> = Vec::new();
-    let capture_group_names = capture_groups(&re, true);
+    let capture_group_names = capture_groups(re, true);
     let capture_matches = re.captures_iter(input);
 
     for capture_result in capture_matches {

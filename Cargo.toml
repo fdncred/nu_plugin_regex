@@ -10,6 +10,8 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-nu-plugin = "0.73.0"
-nu-protocol = "0.73.0"
+# nu-plugin = "0.73.0"
+# nu-protocol = "0.73.0"
+nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.73.1"}
+nu-protocol = { path = "../nushell/crates/nu-protocol", version="0.73.1"}
 fancy-regex = "0.10.0"

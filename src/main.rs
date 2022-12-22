@@ -1,7 +1,7 @@
 mod regex_;
 
 use nu_plugin::{serve_plugin, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin};
-use nu_protocol::{Category, Signature, Spanned, SyntaxShape, Value};
+use nu_protocol::{Category, Signature, Spanned, SyntaxShape, Type, Value};
 
 struct Regex_;
 
@@ -20,6 +20,8 @@ impl Plugin for Regex_ {
                 SyntaxShape::String,
                 "the regular expression to use",
             )
+            .allow_variants_without_examples(true)
+            .input_output_types(vec![(Type::String, Type::Table(vec![]))])
             .category(Category::Experimental)]
     }
 
@@ -38,13 +40,11 @@ impl Plugin for Regex_ {
                 val,
                 *span,
             )?),
-            v => {
-                return Err(LabeledError {
-                    label: "Expected binary from pipeline".into(),
-                    msg: format!("requires binary input, got {}", v.get_type()),
-                    span: Some(call.head),
-                });
-            }
+            v => Err(LabeledError {
+                label: "Expected binary from pipeline".into(),
+                msg: format!("requires binary input, got {}", v.get_type()),
+                span: Some(call.head),
+            }),
         }
     }
 }
