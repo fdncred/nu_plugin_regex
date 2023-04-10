@@ -12,6 +12,6 @@ license = "MIT"
 [dependencies]
 # nu-plugin = "0.74.0"
 # nu-protocol = "0.74.0"
-nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.76.1"}
-nu-protocol = { path = "../nushell/crates/nu-protocol", version="0.76.1"}
+nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.78.1"}
+nu-protocol = { path = "../nushell/crates/nu-protocol", version="0.78.1"}
 fancy-regex = "0.11.0"
