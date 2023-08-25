@@ -1,6 +1,6 @@
 use fancy_regex::Regex;
 use nu_plugin::LabeledError;
-use nu_protocol::{Span, Value};
+use nu_protocol::{record, Span, Value};
 
 fn validate_regex(pattern: &str, pattern_span: Span) -> Result<Regex, LabeledError> {
     match Regex::new(pattern) {
@@ -66,37 +66,15 @@ fn capture_without_groups(
 
     for match_result in matches {
         match match_result {
-            Ok(a_match) => {
-                let mut cols = Vec::new();
-                let mut vals = Vec::new();
-
-                cols.push("input".to_string());
-                vals.push(Value::String {
-                    val: val.to_string(),
-                    span: value_span,
-                });
-                cols.push("match".to_string());
-                vals.push(Value::String {
-                    val: a_match.as_str().to_string(),
-                    span: value_span,
-                });
-                cols.push("begin".to_string());
-                vals.push(Value::Int {
-                    val: a_match.start() as i64,
-                    span: value_span,
-                });
-                cols.push("end".to_string());
-                vals.push(Value::Int {
-                    val: a_match.end() as i64,
-                    span: value_span,
-                });
-
-                recs.push(Value::Record {
-                    cols,
-                    vals,
-                    span: value_span,
-                });
-            }
+            Ok(a_match) => recs.push(Value::record(
+                record! {
+                    "input" => Value::string(val.to_string(), value_span),
+                    "match" => Value::string(a_match.as_str(), value_span),
+                    "begin" => Value::int(a_match.start() as i64, value_span),
+                    "end" => Value::int(a_match.end() as i64, value_span),
+                },
+                value_span,
+            )),
             Err(e) => {
                 return Err(LabeledError {
                     label: "Invalid Regex".into(),
@@ -135,46 +113,21 @@ fn capture_with_groups(
             }
         };
 
-        // for (column_name, capture_match) in capture_group_names.iter().zip(captures.iter().skip(1))
         for (column_name, capture_match) in capture_group_names.iter().zip(captures.iter()) {
-            let mut cols = Vec::with_capacity(capture_group_names.len());
-            let mut vals = Vec::with_capacity(captures.len());
-
             let cap_string = capture_match
                 .map(|v| (input.to_string(), v.as_str(), v.start(), v.end()))
                 .unwrap_or(("".to_string(), "", 0, 0));
 
-            cols.push("input".to_string());
-            vals.push(Value::String {
-                val: cap_string.0,
-                span: value_span,
-            });
-            cols.push("capture_name".to_string());
-            vals.push(Value::String {
-                val: column_name.clone(),
-                span: value_span,
-            });
-            cols.push("match".to_string());
-            vals.push(Value::String {
-                val: cap_string.1.to_string(),
-                span: value_span,
-            });
-            cols.push("begin".to_string());
-            vals.push(Value::Int {
-                val: cap_string.2 as i64,
-                span: value_span,
-            });
-            cols.push("end".to_string());
-            vals.push(Value::Int {
-                val: cap_string.3 as i64,
-                span: value_span,
-            });
-
-            recs.push(Value::Record {
-                cols,
-                vals,
-                span: pattern_span,
-            });
+            recs.push(Value::record(
+                record! {
+                    "input" => Value::string(cap_string.0, value_span),
+                    "capture_name" => Value::string(column_name.clone(), value_span),
+                    "match" => Value::string(cap_string.1, value_span),
+                    "begin" => Value::int(cap_string.2 as i64, value_span),
+                    "end" => Value::int(cap_string.3 as i64, value_span),
+                },
+                value_span,
+            ))
         }
     }
 

@@ -2,7 +2,7 @@ mod regex_;
 
 use nu_plugin::{serve_plugin, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin};
 use nu_protocol::{
-    Category, PluginExample, PluginSignature, Span, Spanned, SyntaxShape, Type, Value,
+    Category, PluginExample, PluginSignature, Record, Span, Spanned, SyntaxShape, Type, Value,
 };
 
 struct Regex_;
@@ -30,7 +30,7 @@ impl Plugin for Regex_ {
                 example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
                 result: Some(Value::List {
                     vals: vec![
-                        Value::Record {
+                        Value::test_record(Record {
                             cols: vec![
                                 "input".into(),
                                 "capture_name".into(),
@@ -39,30 +39,14 @@ impl Plugin for Regex_ {
                                 "end".into(),
                             ],
                             vals: vec![
-                                Value::String {
-                                    val: "hello world".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::String {
-                                    val: "capgrp0".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::String {
-                                    val: "hello world".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::Int {
-                                    val: 0,
-                                    span: Span::unknown(),
-                                },
-                                Value::Int {
-                                    val: 11,
-                                    span: Span::unknown(),
-                                },
+                                Value::test_string("hello world"),
+                                Value::test_string("capgrp0"),
+                                Value::test_string("hello world"),
+                                Value::test_int(0),
+                                Value::test_int(11),
                             ],
-                            span: Span::unknown(),
-                        },
-                        Value::Record {
+                        }),
+                        Value::test_record(Record {
                             cols: vec![
                                 "input".into(),
                                 "capture_name".into(),
@@ -71,30 +55,14 @@ impl Plugin for Regex_ {
                                 "end".into(),
                             ],
                             vals: vec![
-                                Value::String {
-                                    val: "hello world".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::String {
-                                    val: "first".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::String {
-                                    val: "hello".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::Int {
-                                    val: 0,
-                                    span: Span::unknown(),
-                                },
-                                Value::Int {
-                                    val: 5,
-                                    span: Span::unknown(),
-                                },
+                                Value::test_string("hello world"),
+                                Value::test_string("first"),
+                                Value::test_string("hello"),
+                                Value::test_int(0),
+                                Value::test_int(5),
                             ],
-                            span: Span::unknown(),
-                        },
-                        Value::Record {
+                        }),
+                        Value::test_record(Record {
                             cols: vec![
                                 "input".into(),
                                 "capture_name".into(),
@@ -103,31 +71,15 @@ impl Plugin for Regex_ {
                                 "end".into(),
                             ],
                             vals: vec![
-                                Value::String {
-                                    val: "hello world".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::String {
-                                    val: "second".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::String {
-                                    val: "world".into(),
-                                    span: Span::unknown(),
-                                },
-                                Value::Int {
-                                    val: 6,
-                                    span: Span::unknown(),
-                                },
-                                Value::Int {
-                                    val: 11,
-                                    span: Span::unknown(),
-                                },
+                                Value::test_string("hello world"),
+                                Value::test_string("second"),
+                                Value::test_string("world"),
+                                Value::test_int(6),
+                                Value::test_int(11),
                             ],
-                            span: Span::unknown(),
-                        },
+                        }),
                     ],
-                    span: Span::unknown(),
+                    span: Span::test_data(),
                 }),
             }])]
     }
