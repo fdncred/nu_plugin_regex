@@ -85,10 +85,7 @@ fn capture_without_groups(
         }
     }
 
-    Ok(Value::List {
-        vals: recs,
-        span: value_span,
-    })
+    Ok(Value::list(recs, value_span))
 }
 
 fn capture_with_groups(
@@ -131,8 +128,5 @@ fn capture_with_groups(
         }
     }
 
-    Ok(Value::List {
-        vals: recs,
-        span: pattern_span,
-    })
+    Ok(Value::list(recs, pattern_span))
 }

@@ -28,8 +28,8 @@ impl Plugin for Regex_ {
             .plugin_examples(vec![PluginExample {
                 description: "Parse a string with a regular expression".into(),
                 example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
-                result: Some(Value::List {
-                    vals: vec![
+                result: Some(Value::list(
+                    vec![
                         Value::test_record(Record {
                             cols: vec![
                                 "input".into(),
@@ -79,8 +79,8 @@ impl Plugin for Regex_ {
                             ],
                         }),
                     ],
-                    span: Span::test_data(),
-                }),
+                    Span::test_data(),
+                )),
             }])]
     }
 
@@ -93,11 +93,11 @@ impl Plugin for Regex_ {
         assert_eq!(name, "regex");
         let pattern: Spanned<String> = call.req(0)?;
         match input {
-            Value::String { val, span } => Ok(crate::regex_::regex_from_string(
+            Value::String { val, .. } => Ok(crate::regex_::regex_from_string(
                 &pattern.item,
                 pattern.span,
                 val,
-                *span,
+                input.span(),
             )?),
             v => Err(LabeledError {
                 label: "Expected binary from pipeline".into(),
