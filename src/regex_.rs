@@ -1,6 +1,7 @@
 use fancy_regex::Regex;
 use nu_plugin::LabeledError;
 use nu_protocol::{record, Span, Value};
+use nu_protocol::{record, Span, Value};
 
 fn validate_regex(pattern: &str, pattern_span: Span) -> Result<Regex, LabeledError> {
     match Regex::new(pattern) {
@@ -66,15 +67,15 @@ fn capture_without_groups(
 
     for match_result in matches {
         match match_result {
-            Ok(a_match) => recs.push(Value::record(
-                record! {
+            Ok(a_match) => {
+                let rec = record!(
                     "input" => Value::string(val.to_string(), value_span),
-                    "match" => Value::string(a_match.as_str(), value_span),
+                    "match" => Value::string(a_match.as_str().to_string(),value_span),
                     "begin" => Value::int(a_match.start() as i64, value_span),
                     "end" => Value::int(a_match.end() as i64, value_span),
-                },
-                value_span,
-            )),
+                );
+                recs.push(Value::record(rec, value_span));
+            }
             Err(e) => {
                 return Err(LabeledError {
                     label: "Invalid Regex".into(),
@@ -115,16 +116,14 @@ fn capture_with_groups(
                 .map(|v| (input.to_string(), v.as_str(), v.start(), v.end()))
                 .unwrap_or(("".to_string(), "", 0, 0));
 
-            recs.push(Value::record(
-                record! {
-                    "input" => Value::string(cap_string.0, value_span),
-                    "capture_name" => Value::string(column_name.clone(), value_span),
-                    "match" => Value::string(cap_string.1, value_span),
-                    "begin" => Value::int(cap_string.2 as i64, value_span),
-                    "end" => Value::int(cap_string.3 as i64, value_span),
-                },
-                value_span,
-            ))
+            let rec = record!(
+                "input" => Value::string(cap_string.0, value_span),
+                "capture_name" => Value::string(column_name.clone(), value_span),
+                "match" => Value::string(cap_string.1.to_string(), value_span),
+                "begin" => Value::int(cap_string.2 as i64, value_span),
+                "end" => Value::int(cap_string.3 as i64, value_span),
+            );
+            recs.push(Value::record(rec, value_span));
         }
     }
 

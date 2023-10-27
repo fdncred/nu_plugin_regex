@@ -1,6 +1,6 @@
 [package]
 name = "nu_plugin_regex"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Darren Schroeder"]
 edition = "2021"
 repository = "https://github.com/fdncred/nu_plugin_regex"
@@ -10,8 +10,8 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.84.1" }
-# nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.84.1" }
-nu-plugin = "0.85.0"
-nu-protocol = "0.85.0"
+# nu-plugin = "0.74.0"
+# nu-protocol = "0.74.0"
+nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.86.1" }
+nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.86.1" }
 fancy-regex = "0.11.0"
