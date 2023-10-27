@@ -1,7 +1,6 @@
 use fancy_regex::Regex;
 use nu_plugin::LabeledError;
 use nu_protocol::{record, Span, Value};
-use nu_protocol::{record, Span, Value};
 
 fn validate_regex(pattern: &str, pattern_span: Span) -> Result<Regex, LabeledError> {
     match Regex::new(pattern) {
