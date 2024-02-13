@@ -99,7 +99,7 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 ```
 ## Example 7 - match with 2 named capture groups and 1 unnamed capture group
 ```bash
-'abc123abc' | regex '(?<word>\w{3})(?<num>\d{3})\w'
+'abc123abc' | regex '(?<word>\w{3})(?<num>\d{3})(\w{3})'
 ```
 ```console
 ╭───┬───────────┬──────────────┬─────────┬───────┬─────╮
@@ -108,6 +108,7 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 │ 0 │ abc123abc │ capgrp0      │ abc123a │     0 │   7 │
 │ 1 │ abc123abc │ word         │ abc     │     0 │   3 │
 │ 2 │ abc123abc │ num          │ 123     │     3 │   6 │
+│ 3 │ abc123abc │ capgrp3      │ abc     │     6 │   9 │
 ╰───┴───────────┴──────────────┴─────────┴───────┴─────╯
 ```
 ## Example 8 - match non-digits, digits, non-digits with unnamed capture groups
