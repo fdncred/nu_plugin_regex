@@ -43,7 +43,7 @@ This is a nushell plugin to parse regular expressions.
 ╰───┴───────────┴───────────┴───────┴─────╯
 ```
 ## Example 4 - match the output of `ls` with a list of characters
-```base
+```nushell
 ls | each {|e| $e.name | regex '[Cc]'} | flatten
 ```
 ```console
