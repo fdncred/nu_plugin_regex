@@ -5,7 +5,7 @@ This is a nushell plugin to parse regular expressions.
 # Examples
 
 ## Example 1 - match digits one or more times
-```bash
+```nushell
 'abc123abc' | regex '\d+'
 ```
 ```console
@@ -16,7 +16,7 @@ This is a nushell plugin to parse regular expressions.
 ╰───┴───────────┴───────┴───────┴─────╯
 ```
 ## Example 2 - match single character in a list
-```bash
+```nushell
 'abc123abc' | regex '[a-c]'
 ```
 ```console
@@ -32,7 +32,7 @@ This is a nushell plugin to parse regular expressions.
 ╰───┴───────────┴───────┴───────┴─────╯
 ```
 ## Example 3 - match any word character one or more times
-```bash
+```nushell
 'abc123abc' | regex '\w+'
 ```
 ```console
@@ -72,7 +72,7 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 ╰────┴─────────────────────────────┴───────┴───────┴─────╯
 ```
 ## Example 5 - match with 2 unnamed capture groups
-```bash
+```nushell
 'abc123abc' | regex '(\w{3})(\d{3})'
 ```
 ```console
@@ -85,7 +85,7 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 ╰───┴───────────┴──────────────┴────────┴───────┴─────╯
 ```
 ## Example 6 - match with 2 named capture groups
-```bash
+```nushell
 'abc123abc' | regex '(?<word>\w{3})(?<num>\d{3})'
 ```
 ```console
@@ -98,7 +98,7 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 ╰───┴───────────┴──────────────┴────────┴───────┴─────╯
 ```
 ## Example 7 - match with 2 named capture groups and 1 unnamed capture group
-```bash
+```nushell
 'abc123abc' | regex '(?<word>\w{3})(?<num>\d{3})(\w{3})'
 ```
 ```console
@@ -112,7 +112,7 @@ ls | each {|e| $e.name | regex '[Cc]'} | flatten
 ╰───┴───────────┴──────────────┴─────────┴───────┴─────╯
 ```
 ## Example 8 - match non-digits, digits, non-digits with unnamed capture groups
-```bash
+```nushell
 'abc123abc' | regex '(\D+)(\d+)(\D+)'
 ```
 ```console
