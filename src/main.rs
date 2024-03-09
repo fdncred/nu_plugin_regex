@@ -1,6 +1,8 @@
 mod regex_;
 
-use nu_plugin::{serve_plugin, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin};
+use nu_plugin::{
+    serve_plugin, EngineInterface, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin,
+};
 use nu_protocol::{Category, PluginExample, PluginSignature, Spanned, SyntaxShape, Type, Value};
 
 struct Regex_;
@@ -31,9 +33,9 @@ impl Plugin for Regex_ {
     }
 
     fn run(
-        &mut self,
+        &self,
         name: &str,
-        _config: &Option<Value>,
+        _engine: &EngineInterface,
         call: &EvaluatedCall,
         input: &Value,
     ) -> Result<Value, LabeledError> {
