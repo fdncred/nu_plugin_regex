@@ -2,20 +2,25 @@ mod regex_;
 
 use nu_plugin::{
     serve_plugin, EngineInterface, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin,
+    PluginCommand, SimplePluginCommand,
 };
 use nu_protocol::{Category, PluginExample, PluginSignature, Spanned, SyntaxShape, Type, Value};
 
-struct Regex_;
+struct RegExPlugin;
 
-impl Regex_ {
-    fn new() -> Self {
-        Self {}
+impl Plugin for RegExPlugin {
+    fn commands(&self) -> Vec<Box<dyn PluginCommand<Plugin = Self>>> {
+        vec![Box::new(Regex_)]
     }
 }
 
-impl Plugin for Regex_ {
-    fn signature(&self) -> Vec<PluginSignature> {
-        vec![PluginSignature::build("regex")
+struct Regex_;
+
+impl SimplePluginCommand for Regex_ {
+    type Plugin = RegExPlugin;
+
+    fn signature(&self) -> PluginSignature {
+        PluginSignature::build("regex")
             .usage("Parse input with a regular expression")
             .required(
                 "pattern",
@@ -29,17 +34,16 @@ impl Plugin for Regex_ {
                 description: "Parse a string with a regular expression".into(),
                 example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
                 result: None,
-            }])]
+            }])
     }
 
     fn run(
         &self,
-        name: &str,
+        _config: &RegExPlugin,
         _engine: &EngineInterface,
         call: &EvaluatedCall,
         input: &Value,
     ) -> Result<Value, LabeledError> {
-        assert_eq!(name, "regex");
         let pattern: Spanned<String> = call.req(0)?;
         let span = input.span();
         match input {
@@ -59,5 +63,5 @@ impl Plugin for Regex_ {
 }
 
 fn main() {
-    serve_plugin(&mut Regex_::new(), MsgPackSerializer);
+    serve_plugin(&RegExPlugin, MsgPackSerializer);
 }
