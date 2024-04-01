@@ -1,15 +1,13 @@
 use fancy_regex::Regex;
-use nu_plugin::LabeledError;
-use nu_protocol::{record, Span, Value};
+use nu_protocol::{record, LabeledError, Span, Value};
 
 fn validate_regex(pattern: &str, pattern_span: Span) -> Result<Regex, LabeledError> {
     match Regex::new(pattern) {
         Ok(regex) => Ok(regex),
-        Err(e) => Err(LabeledError {
-            label: "Invalid Regex".into(),
-            msg: format!("error: {}", e),
-            span: Some(pattern_span),
-        }),
+        Err(e) => {
+            Err(LabeledError::new(format!("error: {}", e))
+                .with_label("Invalid Regex", pattern_span))
+        }
     }
 }
 
@@ -76,11 +74,8 @@ fn capture_without_groups(
                 recs.push(Value::record(rec, value_span));
             }
             Err(e) => {
-                return Err(LabeledError {
-                    label: "Invalid Regex".into(),
-                    msg: format!("error: {}", e),
-                    span: Some(pattern_span),
-                });
+                return Err(LabeledError::new(format!("error: {}", e))
+                    .with_label("Invalid Regex", pattern_span));
             }
         }
     }
@@ -102,11 +97,8 @@ fn capture_with_groups(
         let captures = match capture_result {
             Ok(c) => c,
             Err(e) => {
-                return Err(LabeledError {
-                    label: "Error with regular expression captures".into(),
-                    msg: format!("error: {}", e),
-                    span: Some(pattern_span),
-                });
+                return Err(LabeledError::new(format!("error: {}", e))
+                    .with_label("Error with regular expression captures", pattern_span));
             }
         };
 

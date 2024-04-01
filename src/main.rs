@@ -1,10 +1,10 @@
 mod regex_;
 
 use nu_plugin::{
-    serve_plugin, EngineInterface, EvaluatedCall, LabeledError, MsgPackSerializer, Plugin,
-    PluginCommand, SimplePluginCommand,
+    serve_plugin, EngineInterface, EvaluatedCall, MsgPackSerializer, Plugin, PluginCommand,
+    SimplePluginCommand,
 };
-use nu_protocol::{Category, PluginExample, PluginSignature, Spanned, SyntaxShape, Type, Value};
+use nu_protocol::{Category, Example, LabeledError, Signature, Spanned, SyntaxShape, Type, Value};
 
 struct RegExPlugin;
 
@@ -19,9 +19,16 @@ struct Regex_;
 impl SimplePluginCommand for Regex_ {
     type Plugin = RegExPlugin;
 
-    fn signature(&self) -> PluginSignature {
-        PluginSignature::build("regex")
-            .usage("Parse input with a regular expression")
+    fn name(&self) -> &str {
+        "regex"
+    }
+
+    fn usage(&self) -> &str {
+        "Parse input with a regular expression and display the results."
+    }
+
+    fn signature(&self) -> Signature {
+        Signature::build(PluginCommand::name(self))
             .required(
                 "pattern",
                 SyntaxShape::String,
@@ -30,11 +37,14 @@ impl SimplePluginCommand for Regex_ {
             .allow_variants_without_examples(true)
             .input_output_types(vec![(Type::String, Type::Table(vec![]))])
             .category(Category::Experimental)
-            .plugin_examples(vec![PluginExample {
-                description: "Parse a string with a regular expression".into(),
-                example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
-                result: None,
-            }])
+    }
+
+    fn examples(&self) -> Vec<Example> {
+        vec![Example {
+            description: "Parse a string with a regular expression".into(),
+            example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
+            result: None,
+        }]
     }
 
     fn run(
@@ -53,11 +63,10 @@ impl SimplePluginCommand for Regex_ {
                 val,
                 span,
             )?),
-            v => Err(LabeledError {
-                label: "Expected binary from pipeline".into(),
-                msg: format!("requires binary input, got {}", v.get_type()),
-                span: Some(call.head),
-            }),
+            v => Err(
+                LabeledError::new(format!("requires string input, got {}", v.get_type()))
+                    .with_label("Expected string from pipeline", call.head),
+            ),
         }
     }
 }
