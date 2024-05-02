@@ -35,7 +35,7 @@ impl SimplePluginCommand for Regex_ {
                 "the regular expression to use",
             )
             .allow_variants_without_examples(true)
-            .input_output_types(vec![(Type::String, Type::Table(vec![]))])
+            .input_output_types(vec![(Type::String, Type::table())])
             .category(Category::Experimental)
     }
 
