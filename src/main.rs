@@ -9,6 +9,10 @@ use nu_protocol::{Category, Example, LabeledError, Signature, Spanned, SyntaxSha
 struct RegExPlugin;
 
 impl Plugin for RegExPlugin {
+    fn version(&self) -> String {
+        env!("CARGO_PKG_VERSION").into()
+    }
+
     fn commands(&self) -> Vec<Box<dyn PluginCommand<Plugin = Self>>> {
         vec![Box::new(Regex_)]
     }
