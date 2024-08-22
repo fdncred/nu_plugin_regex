@@ -383,24 +383,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "dirs-next"
-version = "2.0.0"
+name = "dirs"
+version = "5.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b98cf8ebf19c3d1b223e151f99a4f9f0690dca41414773390fc824184ac833e1"
+checksum = "44c45a9d03d6676652bcb5e724c7e988de1acad23a711b5217ab9cbecbec2225"
 dependencies = [
- "cfg-if",
- "dirs-sys-next",
+ "dirs-sys",
 ]
 
 [[package]]
-name = "dirs-sys-next"
-version = "0.1.2"
+name = "dirs-sys"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ebda144c4fe02d1f7ea1a7d9641b6fc6b580adcfa024ae48797ecdeb6825b4d"
+checksum = "520f05a5cbd335fae5a99ff7a6ab8627577660ee5cfd6a94a6a929b52ff0321c"
 dependencies = [
  "libc",
+ "option-ext",
  "redox_users",
- "winapi",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -534,9 +534,9 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "2.2.3"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "233cf39063f058ea2caae4091bf4a3ef70a653afbc026f5c4a4135d114e3c177"
+checksum = "93ead53efc7ea8ed3cfb0c79fc8023fbb782a5432b52830b6518941cebe6505c"
 dependencies = [
  "equivalent",
  "hashbrown 0.14.2",
@@ -781,7 +781,7 @@ dependencies = [
 
 [[package]]
 name = "nu-derive-value"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "convert_case",
  "proc-macro-error",
@@ -792,30 +792,32 @@ dependencies = [
 
 [[package]]
 name = "nu-engine"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
+ "log",
  "nu-glob",
  "nu-path",
  "nu-protocol",
  "nu-utils",
+ "terminal_size",
 ]
 
 [[package]]
 name = "nu-glob"
-version = "0.95.1"
+version = "0.97.2"
 
 [[package]]
 name = "nu-path"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
- "dirs-next",
+ "dirs",
  "omnipath",
  "pwd",
 ]
 
 [[package]]
 name = "nu-plugin"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "log",
  "nix",
@@ -823,12 +825,13 @@ dependencies = [
  "nu-plugin-core",
  "nu-plugin-protocol",
  "nu-protocol",
+ "nu-utils",
  "thiserror",
 ]
 
 [[package]]
 name = "nu-plugin-core"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "interprocess",
  "log",
@@ -842,7 +845,7 @@ dependencies = [
 
 [[package]]
 name = "nu-plugin-protocol"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "bincode",
  "nu-protocol",
@@ -854,15 +857,18 @@ dependencies = [
 
 [[package]]
 name = "nu-protocol"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "brotli",
  "byte-unit",
  "chrono",
  "chrono-humanize",
  "convert_case",
+ "dirs",
+ "dirs-sys",
  "fancy-regex",
  "indexmap",
+ "log",
  "lru",
  "miette",
  "nix",
@@ -876,11 +882,12 @@ dependencies = [
  "serde",
  "thiserror",
  "typetag",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
 name = "nu-system"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "chrono",
  "itertools",
@@ -898,7 +905,7 @@ dependencies = [
 
 [[package]]
 name = "nu-utils"
-version = "0.95.1"
+version = "0.97.2"
 dependencies = [
  "crossterm_winapi",
  "log",
@@ -950,6 +957,12 @@ name = "once_cell"
 version = "1.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd8b5dd2ae5ed71462c540258bedcb51965123ad7e7ccf4b9a8cafaa4a63576d"
+
+[[package]]
+name = "option-ext"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "04744f49eae99ab78e0d5c0b603ab218f515ea8cfe5a456d7629ad883a3b6e7d"
 
 [[package]]
 name = "os_pipe"
