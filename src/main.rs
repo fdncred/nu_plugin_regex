@@ -27,7 +27,7 @@ impl SimplePluginCommand for Regex_ {
         "regex"
     }
 
-    fn usage(&self) -> &str {
+    fn description(&self) -> &str {
         "Parse input with a regular expression and display the results."
     }
 
