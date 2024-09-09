@@ -11,20 +11,20 @@ license = "MIT"
 
 [dependencies]
 # nushell dependencies
-nu-plugin = "0.97.1"
-nu-protocol = "0.97.1"
-nu-path = "0.97.1"
+# nu-plugin = "0.97.1"
+# nu-protocol = "0.97.1"
+# nu-path = "0.97.1"
 
 # for local development, you can use a path dependency
-# nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.97.2" }
-# nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.97.2" }
-# nu-path = { path = "../nushell/crates/nu-path", version = "0.97.2" }
+nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.97.2" }
+nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.97.2" }
+nu-path = { path = "../nushell/crates/nu-path", version = "0.97.2" }
 
 fancy-regex = "0.13.0"
 
 [dev-dependencies]
-nu-plugin-test-support = "0.97.1"
-# nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
+# nu-plugin-test-support = "0.97.1"
+nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
 
 [profile.release]
 opt-level = "s"     # Optimize for size
