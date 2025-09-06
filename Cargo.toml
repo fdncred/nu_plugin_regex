@@ -1,35 +1,35 @@
 [package]
-name = "nu_plugin_regex"
-version = "0.15.0"
-authors = ["Darren Schroeder"]
-edition = "2024"
-repository = "https://github.com/fdncred/nu_plugin_regex"
-description = "nu plugin to search text with regex"
-license = "MIT"
+  authors    =["Darren Schroeder"]
+  description="nu plugin to search text with regex"
+  edition    ="2024"
+  license    ="MIT"
+  name       ="nu_plugin_regex"
+  repository ="https://github.com/fdncred/nu_plugin_regex"
+  version    ="0.15.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+  # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# nushell dependencies
-nu-plugin = "0.106.0"
-nu-protocol = "0.106.0"
-nu-path = "0.106.0"
+  # nushell dependencies
+  nu-path    ="0.107.0"
+  nu-plugin  ="0.107.0"
+  nu-protocol="0.107.0"
 
-# for local development, you can use a path dependency
-# nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.98.0" }
-# nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.98.0" }
-# nu-path = { path = "../nushell/crates/nu-path", version = "0.98.0" }
+  # for local development, you can use a path dependency
+  # nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.98.0" }
+  # nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.98.0" }
+  # nu-path = { path = "../nushell/crates/nu-path", version = "0.98.0" }
 
-fancy-regex = "0.15.0"
+  fancy-regex="0.15.0"
 
 [dev-dependencies]
-nu-plugin-test-support = "0.106.0"
-# nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
+  nu-plugin-test-support="0.107.0"
+  # nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
 
 [profile.release]
-opt-level = "s"     # Optimize for size
-strip = "debuginfo"
-lto = "thin"
+  lto      ="thin"
+  opt-level="s"         # Optimize for size
+  strip    ="debuginfo"
 
 [profile.dev]
-opt-level = 0
+  opt-level=0
