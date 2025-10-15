@@ -1,8 +1,8 @@
 mod regex_;
 
 use nu_plugin::{
-    serve_plugin, EngineInterface, EvaluatedCall, MsgPackSerializer, Plugin, PluginCommand,
-    SimplePluginCommand,
+    EngineInterface, EvaluatedCall, MsgPackSerializer, Plugin, PluginCommand, SimplePluginCommand,
+    serve_plugin,
 };
 use nu_protocol::{Category, Example, LabeledError, Signature, Spanned, SyntaxShape, Type, Value};
 
@@ -43,7 +43,7 @@ impl SimplePluginCommand for Regex_ {
             .category(Category::Experimental)
     }
 
-    fn examples(&self) -> Vec<Example> {
+    fn examples(&self) -> Vec<Example<'_>> {
         vec![Example {
             description: "Parse a string with a regular expression".into(),
             example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
