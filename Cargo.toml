@@ -1,6 +1,6 @@
 [package]
 name = "nu_plugin_regex"
-version = "0.18.0"
+version = "0.19.0"
 authors = ["Darren Schroeder"]
 edition = "2024"
 repository = "https://github.com/fdncred/nu_plugin_regex"
@@ -11,19 +11,19 @@ license = "MIT"
 
 [dependencies]
 # nushell dependencies
-nu-plugin = "0.109.0"
-nu-protocol = "0.109.0"
-nu-path = "0.109.0"
+nu-plugin = "0.110.0"
+nu-protocol = "0.110.0"
+nu-path = "0.110.0"
 
 # for local development, you can use a path dependency
 # nu-plugin = { path = "../nushell/crates/nu-plugin", version = "0.98.0" }
 # nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.98.0" }
 # nu-path = { path = "../nushell/crates/nu-path", version = "0.98.0" }
 
-fancy-regex = "0.16.2"
+fancy-regex = "0.17.0"
 
 [dev-dependencies]
-nu-plugin-test-support = "0.109.0"
+nu-plugin-test-support = "0.110.0"
 # nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
 
 [profile.release]
