@@ -33,3 +33,17 @@ lto = "thin"
 
 [profile.dev]
 opt-level = 0
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/{ name }-{ target }{ archive-suffix }"
+pkg-fmt = "txz"
+bin-dir = "{ name }-{ target }/{ bin }{ binary-ext }"
+
+[package.metadata.binstall.overrides.'cfg(windows)']
+pkg-fmt = "zip"
+bin-dir = "{ bin }{ binary-ext }"
