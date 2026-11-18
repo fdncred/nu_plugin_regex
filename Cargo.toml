@@ -20,7 +20,7 @@ nu-path = "0.117.0"
 # nu-protocol = { path = "../nushell/crates/nu-protocol", version = "0.98.0" }
 # nu-path = { path = "../nushell/crates/nu-path", version = "0.98.0" }
 
-fancy-regex = "0.19.2"
+fancy-regex = "0.20.2"
 
 [profile.release]
 opt-level = "s"     # Optimize for size
