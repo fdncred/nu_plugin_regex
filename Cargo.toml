@@ -22,10 +22,6 @@ nu-path = "0.117.0"
 
 fancy-regex = "0.19.2"
 
-[dev-dependencies]
-nu-plugin-test-support = "0.117.0"
-# nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
-
 [profile.release]
 opt-level = "s"     # Optimize for size
 strip = "debuginfo"
