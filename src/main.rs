@@ -45,8 +45,8 @@ impl SimplePluginCommand for Regex_ {
 
     fn examples(&self) -> Vec<Example<'_>> {
         vec![Example {
-            description: "Parse a string with a regular expression".into(),
-            example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#.into(),
+            description: "Parse a string with a regular expression",
+            example: r#""hello world" | regex '(?P<first>\w+) (?P<second>\w+)'"#,
             result: None,
         }]
     }
